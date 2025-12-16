@@ -5,6 +5,9 @@ from .common import FIXTURES_PATH
 
 logger = logging.getLogger(__name__)
 
+__all__ = [
+    "test_extract_text_from_html_bytes",
+]
 
 def test_extract_text_from_html_bytes():
     moby_path = FIXTURES_PATH / "moby.html"

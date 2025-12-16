@@ -1,0 +1,53 @@
+\titledquestion{Constructing Scaling Laws}[50] 
+\begin{parts}
+
+    
+    \part[50] Problem (scaling\_laws)
+
+        \quad\quad Construct a scaling law to accurately predict the optimal model size, its hyperparameters, and the
+        associated training loss for a FLOPs budget of 1e19. To construct your scaling laws, you will use our
+        training API to query the final training loss for various experimental configurations (\S3.1); you may
+        not query more than 2e18 FLOPs worth of experiments for fitting your scaling law. This is hard cap
+        that will be enforced by the API.
+        
+        \quad\quad \textbf{Deliverable}: A typeset write-up that contains a complete description of your approach and
+        methodology for fitting a scaling law. In addition, it should describe how you use the scaling law to
+        predict the optimal model size for the given FLOPs budget, and your predicted values. The write-up
+        should include commentary about why you made particular design decisions, and the description should
+        be detailed enough to reproduce your approach and results.
+        
+        \quad\quad \textbf{Note on batch size}: We place essentially no constraints on the hyperparameters you may report
+        under the FLOPs budget of 1e19, other than the following requirement: \textbf{your batch size must be
+        either 128 or 256.}\ This is done to ensure that runs have reasonably high model FLOPs utilization. If
+        we have issues with out-of-memory errors when running your reported hyperparameter configuration,
+        we will either use gradient accumulation or scale the number of data parallel GPUs to maintain your
+        desired batch size.
+        
+        \quad\quad To help you get started, we recommend thinking about at least the following questions. Your writeup should contain additional commentary about how decisions were made for each factor below:
+        \begin{itemize}
+            \item Given your fixed scaling laws budget of 2e18, how did you decide which runs to query?
+
+            \item How did you fit your scaling law? Describe the concrete method or methods you used. In
+            particular, it will likely to be useful to familiarize yourself with the approaches used in Kaplan et al.\cite{Kaplan et al.} and Hoffmann et al.\cite{Hoffmann et al.}
+
+            \item How well does your scaling law fit the experimental data?
+
+            \item For our given FLOPs budget of 1e19, what optimal model size does your scaling law predict? What is the predicted loss?
+
+            \item If you were to train a model with your predicted optimal number of parameters, what hyperparameters would you use? To estimate the number of non-embedding parameters for a given model hyperparameter configuration, use $12n_{layer}d^2_{model}$.
+        \end{itemize}
+
+        \quad\quad In addition to the report, submit your (1) predicted optimal model size, (2) the training hyperparameters
+        to use including either batch size 128 or 256, and (3) the model’s training loss to this
+        Google form: \url{https://forms.gle/sAUSLwCUETew2hYN6}. Part of your grade on the assignment will
+        be determined by the performance of your predicted optimal model.
+            
+        \ifans{ I can not access the  training api. To be done}
+        
+     % 手动参考文献
+\begin{thebibliography}{99} % {99}表示最多99条，数字位数匹配最大编号
+\bibitem{Kaplan et al.} Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B. Brown, Benjamin Chess, Rewon Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei. Scaling laws for neural language models, 2020. arXiv:2001.08361.
+\bibitem{Hoffmann et al.} Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya, Trevor Cai, Eliza Rutherford, Diego de Las Casas, Lisa Anne Hendricks, Johannes Welbl, Aidan Clark, Tom Hennigan, Eric Noland, Katie Millican, George van den Driessche, Bogdan Damoc, Aurelia Guy, Simon Osindero, Karen Simonyan, Erich Elsen, Jack W. Rae, Oriol Vinyals, and Laurent Sifre. Training compute-optimal large language models, 2022. arXiv:2203.15556.
+\end{thebibliography}       
+
+\end{parts}

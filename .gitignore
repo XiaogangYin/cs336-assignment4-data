@@ -57,6 +57,14 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+tmp/
+*.log
+*.out
+.DS_Store
+.idea
+# latex
+_minted-main/
+main.synctex.gz
 
 # Translations
 *.mo
