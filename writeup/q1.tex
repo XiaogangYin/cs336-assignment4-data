@@ -131,7 +131,100 @@
 
       \textbf{Deliverable}: 2-3 sentence response comparing and contrasting the text extracted by your own
       function versus the extracted text in the WET files.
-  \end{subparts}
-            
 
+      \ifans{Its output has more unwanted character and space. WET's output seems better.}
+
+  \end{subparts}
+\part[6] Problem (language\_identification)
+  \begin{subparts}
+    \subpart Write a function that will take a Unicode string and identify the main language that is present
+      in this string. Your function should return a pair, containing an identifier of the language and a
+      score between 0 and 1 representing its confidence in that prediction.
+
+      \textbf{Deliverable}: A function that performs language identification, giving its top language prediction
+      and a score. Implement the adapter \textcolor{red}{[run\_identify\_language]} and make sure it passes both
+      tests in uv run pytest -k test\_identify\_language . Note that these tests assume a particular
+      string identifier for English (“en”) and Chinese (“zh”), so your test adapter should perform any
+      applicable re-mapping, if necessary.
+
+      \ifans{cs336\_data/language\_identification.py}
+
+    \subpart The behavior of language models at inference time largely depends on the data they were trained
+      on. As a result, issues in the data filtering pipeline can result in problems downstream. What
+      issues do you think could arise from problems in the language identification procedure? In a
+      higher-stakes scenario (such as when deploying a user-facing product), how would you go about
+      mitigating these issues?
+
+      \textbf{Deliverable}: A 2-5 sentence response.
+
+      \ifans{It will reduce the accuracy of downstream tasks (such as recognizing Chinese as Japanese). In a
+      higher-stakes scenario (such as when deploying a user-facing product), we can raise the threshold or reject some requests or use more advanced models.}
+
+
+    \subpart Run your language identification system on text extracted from the WARC files (via your
+      previously-implemented text extraction function). Manually identify the language in 20 random
+      examples and compare your labels with the classifier predictions. Report any classifier errors.
+      What fraction of documents are English? Based on your observations, what would be a suitable
+      classifier confidence threshold to use in filtering?
+      
+      \textbf{Deliverable}: A 2-5 sentence response.
+
+      \ifans{
+\begin{tabular}{lllll}
+\toprule
+id & model\_class & score & man\_result & right \\
+\midrule
+2313010a-88be-49af-862f-161877b9699e & el & 0.999869168 & Greek & 1
+ \\
+7fe201e8-f0ba-40b3-9dc2-0732347e913d & zh & 0.978632092 & Chinese & 1
+ \\
+eca3f0b3-064e-4c23-ab2d-2701baf06380 & ca & 0.954317212 & Catalan & 1
+ \\
+b9cab2be-07d2-4314-a38f-a04a3106fbd0 & tr & 0.988240182 & Turkish & 1
+ \\
+5c9cfa3a-0f6c-460a-a69e-7d5489b99bc0 & en & 0.110449299 & English & 1
+ \\
+988fe7b4-3dd0-45e2-8ffa-fd06569f75d4 & en & 0.518493354 & English & 1
+ \\
+0f7f7694-e93c-4b97-a119-5f9e3a534697 & zh & 0.872076213 & Chinese & 1
+ \\
+b43f8a93-7f32-4f22-8578-9f4a0d959447 & zh & 0.985808253 & Chinese & 1
+ \\
+2666d698-c60f-49bd-9361-58333a957065 & pt & 0.927117705 & Portugal & 1
+ \\
+3ea00414-38db-4ea6-a917-c15370e4099d & en & 0.604694903 & English & 1
+ \\
+e588aaa9-0c8f-4d81-9bf9-8e0cabc9b374 & sv & 0.815790653 & Swedish & 1
+ \\
+a1f13415-35ce-4f04-9833-43f6e462f09d & nl & 0.909454644 & Dutch & 1
+ \\
+08a56fb9-1104-49e8-969f-17d1e7795315 & en & 0.764572859 & English & 1
+ \\
+b7c3f90f-7448-4a48-a472-9a741f07eac1 & de & 0.913456917 & German & 1
+ \\
+dc5aabbb-c532-4f90-830d-c3b0a3fb471a & en & 0.30128774 & English & 1
+ \\
+ed505555-2a41-4eeb-9e59-845fd0c50d43 & en & 0.363320649 & Portugal & 0
+ \\
+643fedb7-4304-43cf-9ef4-4979f2d519f7 & ru & 0.933857203 & Russian & 1
+ \\
+0168ae62-e9af-4469-8ffa-1ac616184ce9 & es & 0.981798589 & Spanish & 1
+ \\
+0105d4a1-3390-410a-92e8-890d82744f8a & en & 0.715703964 & Chinese & 0
+ \\
+91f6840c-9efc-4c27-975b-dbc29a24f5e2 & en & 0.818909943 & English & 1
+ \\
+\bottomrule
+\end{tabular}
+
+        ed505555-2a41-4eeb-9e59-845fd0c50d43 and 0105d4a1-3390-410a-92e8-890d82744f8a are errors. 8/20 are English. Based on my observations, 0.5 would be a suitable
+        classifier confidence threshold to use for languages ​​other than English. For English, the situation is more complex. English often appears alongside other languages, so we need to use the top 2 score gap value to filter.    
+      }
+
+
+
+      
+  \end{subparts}
+
+          
 \end{parts}

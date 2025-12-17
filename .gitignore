@@ -58,6 +58,7 @@ coverage.xml
 .pytest_cache/
 cover/
 tmp/
+my_data/
 *.log
 *.out
 .DS_Store
